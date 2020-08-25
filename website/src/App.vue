@@ -1,36 +1,28 @@
 <template lang="pug">
   #app
-    h1 Game
-    List(ref="highscore")
+    Home(v-if="showGame === null" :games="games" @open-game="_setGame")
+    Game(v-for="game in games" v-if="showGame === game")
 </template>
 
 <script lang="ts">
   import Vue from "vue";
   import Component from "vue-class-component";
-  import List from "./components/List.vue";
+  import Game from "./pages/Game.vue";
+  import Home from "./pages/Home.vue";
 
-  @Component({ components: { List } })
+  @Component({ components: { Home, Game } })
   export default class App extends Vue {
 
-    $refs!: {
-      highscore: List
-    };
-
-    public get highscore() {
-      return this.$refs.highscore
-    }
+    private showGame: string | null = null;
+    private games: string[] = [];
+    private initialized: boolean = false;
 
     public mounted() {
-      this.highscore.updateEntries([{
-        username: "Paul",
-        score: 9000
-      }, {
-        username: "Micha",
-        score: 5000
-      }, {
-        username: "Bernt",
-        score: 9042
-      }]);
+      this._setGame();
+    }
+
+    private _setGame(game: string = window.location.hash.substr(1)) {
+      this.showGame = game.length !== 0 ? game : null;
     }
   }
 </script>
