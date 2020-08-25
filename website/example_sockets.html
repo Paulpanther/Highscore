@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io();
+            socket.on('games', (games) => console.log(games));
+            socket.on('new_score', (newScore) => console.log(newScore));
+        </script>
+    </head>
+</html>
