@@ -1,0 +1,9 @@
+{
+  "name": "highscore-website",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+  },
+  "author": "Paul Methfessel",
+  "license": "MIT"
+}
