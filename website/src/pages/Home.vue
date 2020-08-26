@@ -1,9 +1,8 @@
 <template lang="pug">
   #home
-    h1 Choose Game
     ul
       li(v-for="game in games")
-        a(:href="'#' + game" @click="_openGame(game)") {{ game }}
+        a(:href="'#' + game.title" @click="_openGame(game.title)") {{ game.title }}
 </template>
 
 <script lang="ts">

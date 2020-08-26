@@ -24,11 +24,31 @@
       this._setGame();
       this._onNewGames([
         {
-          title: "hey",
+          title: "Super nice Game",
           scores: [
             {
-              username: "Paul",
+              username: "Voldemord",
               score: 900
+            },
+            {
+              username: "Tom Riddle",
+              score: 800
+            },
+            {
+              username: "Hermine",
+              score: 750
+            },
+            {
+              username: "Harry Potter",
+              score: 600
+            },
+            {
+              username: "Ron",
+              score: 530
+            },
+            {
+              username: "Mario Mario",
+              score: 420
             }
           ]
         }
@@ -49,7 +69,13 @@
 </script>
 
 <style lang="sass">
+  html
+    font-size: 16px
+
+  body
+    margin: 0
+    padding: 0
+
+    font-size: 62.5%
 </style>
 
-<style lang="sass" scoped>
-</style>

@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap")
+
+$color_red: #e93841
+$color_blue: #4d80c9
+$color_green: #5ae150
+$color_yellow: #ffe947
+$color_purple: #7d3ebf
+
+body
+  background: #000
+  color: #fff
+  font-family: "Press Start 2P", cursive
+  text-transform: uppercase
+
+#app
+  font-size: 1.4em
+
+.game
+  margin: 10em auto
+  padding: 0 1em
+  min-width: 60em
+  width: 60%
+  box-sizing: border-box
+
+  .header
+    display: flex
+    justify-content: space-between
+    font-size: 2.5em
+    margin-bottom: 2em
+    color: $color_yellow
+    flex-wrap: wrap
+
+    .highscore
+      margin: 0 1em .2em 0
+
+  ol
+    font-size: 1.5em
+    list-style: none
+    padding: 0
+
+    li
+      display: flex
+      padding: 0.4em 0
+
+      .score
+        text-align: right
+        flex-grow: 1
+
+      &:nth-of-type(1)::before
+        content: ""
+        background: url("../assets/crown.svg")
+        width: 1em
+        height: 1em
+        margin-right: .5em
+
+      &:nth-of-type(3n + 1)
+        color: $color_red
+
+      &:nth-of-type(3n + 2)
+        color: $color_blue
+
+      &:nth-of-type(3n + 3)
+        color: $color_green
+
+@media only screen and (max-width: 860px)
+  .game
+    min-width: 0
+    width: 100%
+
+@media only screen and (max-width: 550px)
+  #app
+    font-size: 2.5vw

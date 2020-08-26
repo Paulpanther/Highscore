@@ -1,6 +1,8 @@
 <template lang="pug">
-  #game
-    h1 Game
+  .game
+    .header
+      span.highscore Highscore
+      span.title {{ gameData.title }}
     List(:entries="gameData.scores")
 </template>
 

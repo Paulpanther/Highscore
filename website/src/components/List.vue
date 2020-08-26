@@ -1,5 +1,5 @@
 <template lang="pug">
-  ol
+  ol.scores
     ListEntry(
       v-for="(entry, index, key) in entries"
       :username="entry.username"
