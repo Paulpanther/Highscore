@@ -16,9 +16,11 @@ io.on('connection', (socket) => {
 app.post('/score', (req, res) => {
   if (!scores[req.query.game])
     scores[req.query.game] = [];
-  scores[req.query.game].push({player: req.query.player, score: req.query.score});
+  const newEntity = {player: req.query.player, score: req.query.score};
+  scores[req.query.game].push(newEntity);
   io.sockets.emit('new_score', {game: req.query.game, score: req.query.score, player: req.query.player});
-  return res.json({});
+  return res.json({position: scores[req.query.game].sort(a.score - b.score).indexOf(newEntity) + 1});
+  
 })
 
 app.get('/score', (req, res) => {
