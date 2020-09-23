@@ -2,7 +2,7 @@
   #home
     ul
       li(v-for="game in games")
-        a(:href="'#' + game.title" @click="_openGame(game.title)") {{ game.title }}
+        a(:href="'#' + game.game" @click="_openGame(game.game)") {{ game.game }}
 </template>
 
 <script lang="ts">

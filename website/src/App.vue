@@ -1,58 +1,33 @@
 <template lang="pug">
   #app
     Home(v-if="showGame === null" :games="games" @open-game="_setGame")
-    Game(v-for="game in games" v-if="showGame === game.title" :game-data="game")
+    Game(v-for="game in games" v-if="showGame === game.game" :game-data="game")
 </template>
 
 <script lang="ts">
   import Vue from "vue";
   import Component from "vue-class-component";
   import { sortBy } from "lodash";
-  import Game, { GameData } from "./pages/Game.vue";
+  import io from "socket.io-client";
+  import Game, {GameData} from "./pages/Game.vue";
   import Home from "./pages/Home.vue";
+  import Socket = SocketIOClient.Socket;
 
-  const server = "ws://localhost:6789";
+  const server = "localhost:3000";
 
   @Component({ components: { Home, Game } })
   export default class App extends Vue {
 
     private showGame: string | null = null;
     private games: GameData[] = [];
-    private initialized: boolean = false;
+
+    private socket: Socket;
 
     public mounted() {
       this._setGame();
-      this._onNewGames([
-        {
-          title: "Super nice Game",
-          scores: [
-            {
-              username: "Voldemord",
-              score: 900
-            },
-            {
-              username: "Tom Riddle",
-              score: 800
-            },
-            {
-              username: "Hermine",
-              score: 750
-            },
-            {
-              username: "Harry Potter",
-              score: 600
-            },
-            {
-              username: "Ron",
-              score: 530
-            },
-            {
-              username: "Mario Mario",
-              score: 420
-            }
-          ]
-        }
-      ])
+      this.socket = io(server);
+      this.socket.on("games", games => this._onNewGames(games));
+      this.socket.on("new_score", game => this._onNewScore(game));
     }
 
     private _onNewGames(games: GameData[]) {
@@ -60,6 +35,15 @@
         game.scores = sortBy(game.scores, s => s.score).reverse();
         return game;
       });
+    }
+
+    private _onNewScore(game: GameData) {
+      const i = this.games.findIndex(g => g.game === game.game);
+      if (i === -1) {
+        this.games.push(game);
+      } else {
+        this.$set(this.games, i, game);
+      }
     }
 
     private _setGame(game: string = window.location.hash.substr(1)) {

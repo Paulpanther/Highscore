@@ -2,7 +2,7 @@
   .game
     .header
       span.highscore Highscore
-      span.title {{ gameData.title }}
+      span.title {{ gameData.game }}
     List(:entries="gameData.scores")
 </template>
 
@@ -10,12 +10,12 @@
   import Vue from "vue";
 
   export interface Score {
-    username: string;
+    player: string;
     score: number;
   }
 
   export interface GameData {
-    title: string;
+    game: string;
     scores: Score[];
   }
 

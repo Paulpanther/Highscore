@@ -2,7 +2,7 @@
   ol.scores
     ListEntry(
       v-for="(entry, index, key) in entries"
-      :username="entry.username"
+      :username="entry.player"
       :score="entry.score"
       :key="key")
 </template>

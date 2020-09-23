@@ -6,6 +6,7 @@
     "lib": ["ES2017", "dom"],
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false
   }
 }
