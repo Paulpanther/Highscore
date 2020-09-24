@@ -23,7 +23,7 @@
 
     public mounted() {
       this._setGame();
-      this.socket = io();
+      this.socket = window.location.hostname === 'localhost' ? io('http://localhost:3000') : io();
       this.socket.on("games", games => this._onNewGames(games));
       this.socket.on("new_score", game => this._onNewScore(game));
     }
