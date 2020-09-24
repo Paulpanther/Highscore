@@ -30,8 +30,8 @@
     @Prop({ default: {} })
     private gameData: GameData;
 
-    @Prop({ default: false })
-    private compact: boolean;
+    @Prop({ default: '' })
+    private compact: string;
   }
 </script>
 

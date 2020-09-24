@@ -20,8 +20,8 @@
     @Prop({ default: [] })
     private entries: Score[];
 
-    @Prop({ default: false })
-    private compact: boolean;
+    @Prop({ default: '' })
+    private compact: string;
   }
 </script>
 

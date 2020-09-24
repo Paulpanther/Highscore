@@ -2,7 +2,7 @@
   #home
     .error(v-if="games.length === 0") There are no Games for now :( Come back later!
     .game-grid
-      Game(v-for="game in games" :game-data="game" compact @click="_openGame(game.game)")
+      Game(v-for="game in games" :game-data="game" :compact="'compact'" @click="_openGame(game.game)")
 </template>
 
 <script lang="ts">
