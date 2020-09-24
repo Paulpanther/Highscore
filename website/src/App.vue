@@ -8,7 +8,7 @@
   import Vue from "vue";
   import Component from "vue-class-component";
   import { sortBy } from "lodash";
-  import io from "socket.io-client";
+  // import io from "socket.io-client";
   import Game, {GameData} from "./pages/Game.vue";
   import Home from "./pages/Home.vue";
   import Socket = SocketIOClient.Socket;
@@ -23,9 +23,10 @@
 
     public mounted() {
       this._setGame();
-      this.socket = io();
-      this.socket.on("games", games => this._onNewGames(games));
-      this.socket.on("new_score", game => this._onNewScore(game));
+      const url = process.env.SOCKET_URL;
+      // this.socket = url ? io(url) : io();
+      // this.socket.on("games", games => this._onNewGames(games));
+      // this.socket.on("new_score", game => this._onNewScore(game));
     }
 
     private _onNewGames(games: GameData[]) {
