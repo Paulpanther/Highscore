@@ -39,6 +39,6 @@ app.get('/', (req, res) => {
 });
 app.use(express.static(path.join(__dirname, '/../website/dist')));
 
-http.listen(3000, () => {
+http.listen(3000, '0.0.0.0', () => {
   console.log('listening on *:3000');
 });
