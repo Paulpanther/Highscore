@@ -6,7 +6,7 @@ func send_highscore(game: String, player: String, score: int):
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
 	
-	var url = ("http://localhost:3000/score?game=" + game.percent_encode() +
+	var url = ("https://scores.tmbe.me/score?game=" + game.percent_encode() +
 		"&player=" + player.percent_encode() +
 		"&score=" + str(score).percent_encode())
 	

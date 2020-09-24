@@ -14,7 +14,7 @@ public class Highscore : MonoBehaviour
      */
     static IEnumerator SendHighscore(string game, string player, int score, System.Action<int> onScore)
     {
-        using (var request = UnityWebRequest.Post("http://192.168.0.221:3000/score" +
+        using (var request = UnityWebRequest.Post("https://scores.tmbe.me/score" +
             "?game=" + UnityWebRequest.EscapeURL(game) +
             "&player=" + UnityWebRequest.EscapeURL(player) +
             "&score=" + UnityWebRequest.EscapeURL(score.ToString()), "")) {

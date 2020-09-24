@@ -13,8 +13,6 @@
   import Home from "./pages/Home.vue";
   import Socket = SocketIOClient.Socket;
 
-  const server = "localhost:3000";
-
   @Component({ components: { Home, Game } })
   export default class App extends Vue {
 
@@ -25,7 +23,7 @@
 
     public mounted() {
       this._setGame();
-      this.socket = io(server);
+      this.socket = io();
       this.socket.on("games", games => this._onNewGames(games));
       this.socket.on("new_score", game => this._onNewScore(game));
     }
