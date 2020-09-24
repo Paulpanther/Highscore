@@ -1,11 +1,19 @@
+const db = require('diskdb');
 const path = require('path');
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-const scores = {};
-scores["foo"] = [{player: "Paul", score: 42}];
+db.connect('./', ['scores'])
+
+let scores = db.scores.find();
+if (scores && scores.length)
+  scores = scores[0].scores;
+else
+  scores = {};
+
+// scores["foo"] = [{player: "Paul", score: 42}];
 
 io.on('connection', (socket) => {
   socket.emit('games', Object.entries(scores).map(([game, scores]) => ({
@@ -25,6 +33,9 @@ app.post('/score', (req, res) => {
   if (scores[req.query.game].indexOf(newEntity) < 10) {
     io.sockets.emit('new_score', {game: req.query.game, scores: scores[req.query.game].slice(0, 10)});
   }
+
+  db.scores.update({id: 1}, {id: 1, scores: scores}, {upsert: true})
+
   return res.json({position: scores[req.query.game].indexOf(newEntity) + 1});
 });
 
