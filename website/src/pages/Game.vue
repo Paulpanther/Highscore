@@ -1,9 +1,10 @@
 <template lang="pug">
-  .game
+  .game(:class="[ compact ]")
+    .back(@click="$emit('back')")
     .header
       span.highscore Highscore
-      span.title {{ gameData.game }}
-    List(:entries="gameData.scores")
+      span.title(@click="$emit('click')") {{ gameData.game }}
+    List(:entries="gameData.scores" :compact="compact")
 </template>
 
 <script lang="ts">
@@ -28,6 +29,9 @@
 
     @Prop({ default: {} })
     private gameData: GameData;
+
+    @Prop({ default: false })
+    private compact: boolean;
   }
 </script>
 

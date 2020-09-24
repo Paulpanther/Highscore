@@ -1,10 +1,8 @@
 <template lang="pug">
   #home
+    .error(v-if="games.length === 0") There are no Games for now :( Come back later!
     .game-grid
-      Game(v-for="game in games" game-data="game")
-<!--    ul-->
-<!--      li(v-for="game in games")-->
-<!--        a(:href="'#' + game.game" @click="_openGame(game.game)") {{ game.game }}-->
+      Game(v-for="game in games" :game-data="game" compact @click="_openGame(game.game)")
 </template>
 
 <script lang="ts">
