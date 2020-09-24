@@ -16,14 +16,14 @@ io.on('connection', (socket) => {
 
 app.post('/score', (req, res) => {
   if (!req.query.player || !req.query.game || isNaN(Number(req.query.score)))
-    return res.status(400);
+    return res.status(400).send();
   if (!scores[req.query.game])
     scores[req.query.game] = [];
   const newEntity = {player: req.query.player, score: Number(req.query.score)};
   scores[req.query.game].push(newEntity);
   scores[req.query.game] = scores[req.query.game].sort((a, b) => b.score - a.score);
   if (scores[req.query.game].indexOf(newEntity) < 10) {
-    io.sockets.emit('new_score', {game: req.query.game, scores: scores[req.query.game]});
+    io.sockets.emit('new_score', {game: req.query.game, scores: scores[req.query.game].slice(0, 10)});
   }
   return res.json({position: scores[req.query.game].indexOf(newEntity) + 1});
 });
