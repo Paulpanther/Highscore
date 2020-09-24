@@ -1,5 +1,6 @@
 <template lang="pug">
   #app
+    .error(v-if="showGame !== null && !games.find(g => g.game === showGame)") The requested Game does not exist
     Home(v-if="showGame === null" :games="games" @open-game="_setGame")
     Game(v-for="game in games" v-if="showGame === game.game" :game-data="game" @back="_back")
 </template>
@@ -51,6 +52,10 @@
     private _back() {
       this.showGame = null;
       window.location.hash = "";
+    }
+
+    private _showGameValid(): boolean {
+      return this.showGame !== null && !this.games.find(g => g.game === this.showGame);
     }
   }
 </script>
