@@ -16,11 +16,22 @@ body
   font-size: 1.4em
 
 .game
+  position: relative
   margin: 10em auto
   padding: 0 1em
   min-width: 60em
   width: 60%
   box-sizing: border-box
+
+  .back
+    position: absolute
+    cursor: pointer
+
+    background: url("../assets/back.svg")
+    width: 3em
+    height: 3em
+
+    transform: translate(-300%, 0)
 
   .header
     display: flex
@@ -62,8 +73,72 @@ body
       &:nth-of-type(3n + 3)
         color: $color_green
 
-@media only screen and (max-width: 860px)
+  &.compact
+    width: 80%
+    min-width: 0
+    margin-bottom: 0
+
+    .back
+      display: none
+
+    .header
+      margin-bottom: 0
+
+    .highscore
+      display: none
+
+    .title
+      position: relative
+      font-size: .6em
+      cursor: pointer
+
+      &:hover:after
+        display: inline-block
+        content: "Click to show more"
+
+        position: absolute
+        top: -2em
+        left: 0
+
+        font-size: .5em
+        white-space: nowrap
+        padding: .2em
+
+        color: #fff
+        background: $color_blue
+        border-radius: .2em
+
+    ol
+      font-size: 1em
+
+.game-grid
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  grid-auto-rows: 20em
+
+  min-width: 60em
+  width: 60%
+  margin: 0 auto
+
+.error
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+
+  padding: 1em
+  border-radius: 1em
+
+  color: $color_red
+  background: #0004
+
+@media only screen and (max-width: 1111px)
   .game
+    .back
+      transform: translate(0, -300%)
+
+@media only screen and (max-width: 860px)
+  .game, .game-grid
     min-width: 0
     width: 100%
 

@@ -1,7 +1,7 @@
 <template lang="pug">
   ol.scores
     ListEntry(
-      v-for="(entry, index, key) in entries"
+      v-for="(entry, index, key) in entries.slice(0, compact ? 5 : 10)"
       :username="entry.player"
       :score="entry.score"
       :key="key")
@@ -19,6 +19,9 @@
 
     @Prop({ default: [] })
     private entries: Score[];
+
+    @Prop({ default: false })
+    private compact: boolean;
   }
 </script>
 

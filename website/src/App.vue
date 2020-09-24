@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
     Home(v-if="showGame === null" :games="games" @open-game="_setGame")
-    Game(v-for="game in games" v-if="showGame === game.game" :game-data="game")
+    Game(v-for="game in games" v-if="showGame === game.game" :game-data="game" @back="_back")
 </template>
 
 <script lang="ts">
@@ -11,7 +11,6 @@
   import io from "socket.io-client";
   import Game, {GameData} from "./pages/Game.vue";
   import Home from "./pages/Home.vue";
-  import Socket = SocketIOClient.Socket;
 
   @Component({ components: { Home, Game } })
   export default class App extends Vue {
@@ -19,13 +18,12 @@
     private showGame: string | null = null;
     private games: GameData[] = [];
 
-    private socket: Socket;
-
     public mounted() {
       this._setGame();
-      this.socket = window.location.hostname === 'localhost' ? io('http://localhost:3000') : io();
-      this.socket.on("games", games => this._onNewGames(games));
-      this.socket.on("new_score", game => this._onNewScore(game));
+      const url = process.env.SOCKET_URL;
+      const socket = url ? io(url) : io();
+      socket.on("games", (games: any) => this._onNewGames(games));
+      socket.on("new_score", (game: any) => this._onNewScore(game));
     }
 
     private _onNewGames(games: GameData[]) {
@@ -46,6 +44,12 @@
 
     private _setGame(game: string = window.location.hash.substr(1)) {
       this.showGame = game.length !== 0 ? game : null;
+      window.location.hash = game;
+    }
+
+    private _back() {
+      this.showGame = null;
+      window.location.hash = "";
     }
   }
 </script>
