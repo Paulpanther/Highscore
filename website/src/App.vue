@@ -42,9 +42,10 @@
       }
     }
 
-    private _setGame(game: string = window.location.hash.substr(1)) {
+    private _setGame(game: string = decodeURIComponent(window.location.hash.substr(1))) {
+      console.log(game);
       this.showGame = game.length !== 0 ? game : null;
-      window.location.hash = game;
+      window.location.hash = encodeURIComponent(game);
     }
 
     private _back() {
