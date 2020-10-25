@@ -27,16 +27,21 @@ app.post('/score', (req, res) => {
     return res.status(400).send();
   if (!scores[req.query.game])
     scores[req.query.game] = [];
-  const newEntity = {player: req.query.player, score: Number(req.query.score)};
+  const currentHighscore = scores[req.query.game].find(score => score.player === req.query.player);
+  if (currentHighscore && currentHighscore.score >= req.query.score) return res.json({ msg: 'Old score was higher' });
+  const index = scores[req.query.game].indexOf(currentHighscore);
+  if (index > -1) scores[req.query.game].splice(index, 1);
+
+  const newEntity = { player: req.query.player, score: Number(req.query.score) };
   scores[req.query.game].push(newEntity);
   scores[req.query.game] = scores[req.query.game].sort((a, b) => b.score - a.score);
   if (scores[req.query.game].indexOf(newEntity) < 10) {
-    io.sockets.emit('new_score', {game: req.query.game, scores: scores[req.query.game].slice(0, 10)});
+    io.sockets.emit('new_score', { game: req.query.game, scores: scores[req.query.game].slice(0, 10) });
   }
 
-  db.scores.update({id: 1}, {id: 1, scores: scores}, {upsert: true})
+  db.scores.update({ id: 1 }, { id: 1, scores: scores }, { upsert: true })
 
-  return res.json({position: scores[req.query.game].indexOf(newEntity) + 1});
+  return res.json({ position: scores[req.query.game].indexOf(newEntity) + 1 });
 });
 
 app.get('/score', (req, res) => {
