@@ -28,7 +28,7 @@ app.post('/score', (req, res) => {
   if (!scores[req.query.game])
     scores[req.query.game] = [];
   const currentHighscore = scores[req.query.game].find(score => score.player === req.query.player);
-  if (currentHighscore && currentHighscore.score >= req.query.score) return res.json({ msg: 'Old score was higher' });
+  if (currentHighscore && currentHighscore.score >= req.query.score) return res.json({ position: 999, msg: 'Old score was higher' });
   const index = scores[req.query.game].indexOf(currentHighscore);
   if (index > -1) scores[req.query.game].splice(index, 1);
 
