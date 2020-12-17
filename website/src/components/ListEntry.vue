@@ -1,7 +1,7 @@
 <template lang="pug">
   li
     span.username {{ username }}
-    span.score {{ score < 0 ? -score : 0 }}
+    span.score {{ score < 0 ? -score : score }}
 </template>
 
 <script lang="ts">
